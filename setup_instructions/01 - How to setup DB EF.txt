@@ -7,7 +7,7 @@
 	Scaffold-DbContext "Server=DESKTOP-E4OKK0E\SQLEXPRESS;Database=Wiggly;Trusted_Connection=True;"	Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Force
 
   -if docker mssql use code below
-  dotnet ef dbcontext scaffold "Server=localhost;Database=TestDb;User ID=SA;Password=VeryStr0ngP@ssw0rd;TrustServerCertificate=true;"     Microsoft.EntityFrameworkCore.SqlServer -o .\Entities -f
+  dotnet ef dbcontext scaffold "Server=localhost;Database=GradTracker;User ID=SA;Password=VeryStr0ngP@ssw0rd;TrustServerCertificate=true;"     Microsoft.EntityFrameworkCore.SqlServer -o Entities -f
 
 Scaffold-DbContext [-Connection] [-Provider] [-OutputDir] [-Context] [-Schemas>] [-Tables>] 
                     [-DataAnnotations] [-Force] [-Project] [-StartupProject] [<CommonParameters>]
