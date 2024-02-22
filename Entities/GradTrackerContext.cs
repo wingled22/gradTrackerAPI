@@ -29,8 +29,6 @@ public partial class GradTrackerContext : DbContext
     {
         modelBuilder.Entity<Alumnus>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_NewTable");
-
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Barangay)
                 .HasMaxLength(50)
@@ -96,6 +94,27 @@ public partial class GradTrackerContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<EmploymentHistory>(entity =>
+        {
+            entity.ToTable("EmploymentHistory");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CompanyName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("company_name");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("date")
+                .HasColumnName("end_date");
+            entity.Property(e => e.Position)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("position");
+            entity.Property(e => e.StartDate)
+                .HasColumnType("date")
+                .HasColumnName("start_date");
         });
 
         modelBuilder.Entity<EmploymentHistory>(entity =>

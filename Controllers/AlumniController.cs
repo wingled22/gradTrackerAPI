@@ -85,10 +85,13 @@ namespace gradTrackerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Alumnus>> PostAlumnus(Alumnus alumnus)
         {
+          Console.WriteLine(alumnus);
           if (_context.Alumni == null)
           {
             return Problem("Entity set 'GradTrackerContext.Alumni'  is null.");
           }
+
+
             _context.Alumni.Add(alumnus);
             await _context.SaveChangesAsync();
 
