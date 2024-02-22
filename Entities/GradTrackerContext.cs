@@ -34,6 +34,9 @@ public partial class GradTrackerContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("barangay");
+            entity.Property(e => e.BirthDate)
+                .HasColumnType("date")
+                .HasColumnName("birth_date");
             entity.Property(e => e.ContactNumber)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -70,6 +73,10 @@ public partial class GradTrackerContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("province");
+            entity.Property(e => e.Sex)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("sex");
             entity.Property(e => e.Street)
                 .HasMaxLength(50)
                 .IsUnicode(false)

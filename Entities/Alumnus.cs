@@ -30,4 +30,8 @@ public partial class Alumnus
     public string? Program { get; set; }
 
     public DateTime? YearGraduated { get; set; }
+
+    public DateTime? BirthDate { get; set; }
+
+    public string? Sex { get; set; }
 }
