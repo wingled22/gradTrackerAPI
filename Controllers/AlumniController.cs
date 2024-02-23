@@ -24,21 +24,21 @@ namespace gradTrackerAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Alumnus>>> GetDepartments()
         {
-          if (_context.Alumni == null)
-          {
-              return NotFound();
-          }
-            return await _context.Alumni.ToListAsync();
+            if (_context.Alumni == null)
+            {
+                return NotFound();
+            }
+            return await _context.Alumni.OrderByDescending(a => a.Id).ToListAsync();
         }
 
         // GET: api/Alumnus/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Alumnus>> GetAlumnus(int id)
         {
-          if (_context.Alumni == null)
-          {
-              return NotFound();
-          }
+            if (_context.Alumni == null)
+            {
+                return NotFound();
+            }
             var alumnus = await _context.Alumni.FindAsync(id);
 
             if (alumnus == null)
@@ -85,11 +85,11 @@ namespace gradTrackerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Alumnus>> PostAlumnus(Alumnus alumnus)
         {
-          Console.WriteLine(alumnus);
-          if (_context.Alumni == null)
-          {
-            return Problem("Entity set 'GradTrackerContext.Alumni'  is null.");
-          }
+            Console.WriteLine(alumnus);
+            if (_context.Alumni == null)
+            {
+                return Problem("Entity set 'GradTrackerContext.Alumni'  is null.");
+            }
 
 
             _context.Alumni.Add(alumnus);
@@ -98,7 +98,7 @@ namespace gradTrackerAPI.Controllers
             return CreatedAtAction("GetAlumnus", new { id = alumnus.Id }, alumnus);
         }
 
-         // DELETE: api/Alumnus/5
+        // DELETE: api/Alumnus/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAlumnus(int id)
         {
