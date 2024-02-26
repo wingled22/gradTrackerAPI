@@ -112,6 +112,7 @@ namespace gradTrackerAPI.Controllers
             _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
 
+
             return NoContent();
         }
 
