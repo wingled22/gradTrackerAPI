@@ -98,6 +98,20 @@ namespace gradTrackerAPI.Controllers
             return CreatedAtAction("GetAlumnus", new { id = alumnus.Id }, alumnus);
         }
 
+    //     [HttpPost]
+    // public IActionResult PostEmploymentHistory(EmploymentHistory employmentHistory)
+    // {
+    //     // if (!AlumnusExists(employmentHistory.AlumniId))
+    //     // {
+    //     //     return NotFound("Alumnus with the provided AlumniId does not exist.");
+    //     // }
+
+    //     _context.EmploymentHistories.Add(employmentHistory);
+    //     _context.SaveChanges();
+
+    //     return CreatedAtAction("GetEmploymentHistory", new { id = employmentHistory.Id }, employmentHistory);
+    // }
+
         // DELETE: api/Alumnus/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAlumnus(int id)
