@@ -98,6 +98,8 @@ namespace gradTrackerAPI.Controllers
             return CreatedAtAction("GetAlumnus", new { id = alumnus.Id }, alumnus);
         }
 
+
+
          // DELETE: api/Alumnus/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAlumnus(int id)
