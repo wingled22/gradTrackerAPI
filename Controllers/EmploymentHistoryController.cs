@@ -44,7 +44,7 @@ namespace gradTrackerAPI.Controllers
                     StartDate = employment.StartDate,
                     EndDate = employment.EndDate,
                 }
-
+ 
             ).ToList();
 
             if (employmentHistory == null)
