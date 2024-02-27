@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using gradTrackerAPI.Entities;
 using gradTrackerAPI.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace gradTrackerAPI.Controllers
@@ -27,25 +28,25 @@ namespace gradTrackerAPI.Controllers
             {
                 return NotFound();
             }
-            //var employmentHistory = await _context.EmploymentHistories.FindAsync(id);
-            var employmentHistory = 
-            (
-                from alum in _context.Alumni
-                join employment in _context.EmploymentHistories
-                on alum.Id equals employment.AlumniId
-                where id == employment.AlumniId
+            var employmentHistory = await _context.EmploymentHistories.Where(e => e.AlumniId == id).ToListAsync();
+            // var employmentHistory = 
+            // (
+            //     from alum in _context.Alumni
+            //     join employment in _context.EmploymentHistories
+            //     on alum.Id equals employment.AlumniId
+            //     where id == employment.AlumniId
 
-                select new AlumniEmployment
-                {
-                    AlumniId = alum.Id,
-                    Id = employment.Id,
-                    CompanyName = employment.CompanyName,
-                    Position = employment.Position,
-                    StartDate = employment.StartDate,
-                    EndDate = employment.EndDate,
-                }
- 
-            ).ToList();
+            //     select new AlumniEmployment
+            //     {
+            //         AlumniId = alum.Id,
+            //         Id = employment.Id,
+            //         CompanyName = employment.CompanyName,
+            //         Position = employment.Position,
+            //         StartDate = employment.StartDate,
+            //         EndDate = employment.EndDate,
+            //     }
+
+            // ).ToList();
 
             if (employmentHistory == null)
             {
