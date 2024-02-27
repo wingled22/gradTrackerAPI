@@ -28,7 +28,7 @@ namespace gradTrackerAPI.Controllers
                 return NotFound();
             }
             //var employmentHistory = await _context.EmploymentHistories.FindAsync(id);
-            var employmentHistory = 
+            var employmentHistory =
             (
                 from alum in _context.Alumni
                 join employment in _context.EmploymentHistories
@@ -44,7 +44,7 @@ namespace gradTrackerAPI.Controllers
                     StartDate = employment.StartDate,
                     EndDate = employment.EndDate,
                 }
- 
+
             ).ToList();
 
             if (employmentHistory == null)
@@ -58,15 +58,24 @@ namespace gradTrackerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<EmploymentHistory>> PostEmploymentHistory(EmploymentHistory employmentHistory)
         {
-            if (_context.EmploymentHistories == null)
+            try
             {
-                return Problem("Entity set 'GradTrackerContext.Alumni'  is null.");
-            }
-            _context.EmploymentHistories.Add(employmentHistory);
-            await _context.SaveChangesAsync();
+                if (_context == null || _context.EmploymentHistories == null)
+                {
+                    return Problem("Context or entity set 'GradTrackerContext.EmploymentHistories' is null.");
+                }
 
-            //return CreatedAtAction("GetAlumnus", new { id = alumnus.Id }, alumnus);
-            return Ok();
+                _context.EmploymentHistories.Add(employmentHistory);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetEmploymentHistory), new { id = employmentHistory.Id }, employmentHistory);
+            }
+            catch (Exception ex)
+            {
+            
+                return StatusCode(500, "Internal server error");
+            }
         }
+
     }
 }
