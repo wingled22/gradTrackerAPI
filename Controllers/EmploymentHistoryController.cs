@@ -28,7 +28,7 @@ namespace gradTrackerAPI.Controllers
             {
                 return NotFound();
             }
-            var employmentHistory = await _context.EmploymentHistories.Where(e => e.AlumniId == id).ToListAsync();
+            var employmentHistory = await _context.EmploymentHistories.Where(e => e.AlumniId == id).OrderByDescending(e => e.Id).ToListAsync();
 
             if (employmentHistory == null)
             {
@@ -60,7 +60,7 @@ namespace gradTrackerAPI.Controllers
             }
         }
 
-          [HttpPut("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmploymentHistory(int id, EmploymentHistory employmentHistory)
         {
             if (id != employmentHistory.Id)
@@ -111,7 +111,7 @@ namespace gradTrackerAPI.Controllers
             return NoContent();
         }
 
-         private bool EmploymentHistoryExists(int id)
+        private bool EmploymentHistoryExists(int id)
         {
             return (_context.EmploymentHistories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
