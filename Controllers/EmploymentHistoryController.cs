@@ -55,10 +55,40 @@ namespace gradTrackerAPI.Controllers
             }
             catch (Exception ex)
             {
-            
+
                 return StatusCode(500, "Internal server error");
             }
         }
+
+          [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmploymentHistory(int id, EmploymentHistory employmentHistory)
+        {
+            if (id != employmentHistory.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(employmentHistory).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EmploymentHistoryExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
 
         // DELETE: api/EmploymentHistory/5
         [HttpDelete("{id}")]
@@ -79,6 +109,11 @@ namespace gradTrackerAPI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+         private bool EmploymentHistoryExists(int id)
+        {
+            return (_context.EmploymentHistories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
