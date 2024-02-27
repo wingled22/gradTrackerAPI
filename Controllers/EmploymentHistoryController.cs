@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using gradTrackerAPI.Entities;
 using gradTrackerAPI.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace gradTrackerAPI.Controllers
@@ -27,25 +28,7 @@ namespace gradTrackerAPI.Controllers
             {
                 return NotFound();
             }
-            //var employmentHistory = await _context.EmploymentHistories.FindAsync(id);
-            var employmentHistory = 
-            (
-                from alum in _context.Alumni
-                join employment in _context.EmploymentHistories
-                on alum.Id equals employment.AlumniId
-                where id == employment.AlumniId
-
-                select new AlumniEmployment
-                {
-                    AlumniId = alum.Id,
-                    Id = employment.Id,
-                    CompanyName = employment.CompanyName,
-                    Position = employment.Position,
-                    StartDate = employment.StartDate,
-                    EndDate = employment.EndDate,
-                }
- 
-            ).ToList();
+            var employmentHistory = await _context.EmploymentHistories.Where(e => e.AlumniId == id).OrderByDescending(e => e.Id).ToListAsync();
 
             if (employmentHistory == null)
             {
@@ -58,15 +41,79 @@ namespace gradTrackerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<EmploymentHistory>> PostEmploymentHistory(EmploymentHistory employmentHistory)
         {
+            try
+            {
+                if (_context == null || _context.EmploymentHistories == null)
+                {
+                    return Problem("Context or entity set 'GradTrackerContext.EmploymentHistories' is null.");
+                }
+
+                _context.EmploymentHistories.Add(employmentHistory);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetEmploymentHistory), new { id = employmentHistory.Id }, employmentHistory);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmploymentHistory(int id, EmploymentHistory employmentHistory)
+        {
+            if (id != employmentHistory.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(employmentHistory).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EmploymentHistoryExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+
+        // DELETE: api/EmploymentHistory/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmploymentHistory(int id)
+        {
             if (_context.EmploymentHistories == null)
             {
-                return Problem("Entity set 'GradTrackerContext.Alumni'  is null.");
+                return NotFound();
             }
-            _context.EmploymentHistories.Add(employmentHistory);
+
+            var employmentHistory = await _context.EmploymentHistories.FindAsync(id);
+            if (employmentHistory == null)
+            {
+                return NotFound();
+            }
+
+            _context.EmploymentHistories.Remove(employmentHistory);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetAlumnus", new { id = alumnus.Id }, alumnus);
-            return Ok();
+            return NoContent();
+        }
+
+        private bool EmploymentHistoryExists(int id)
+        {
+            return (_context.EmploymentHistories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
