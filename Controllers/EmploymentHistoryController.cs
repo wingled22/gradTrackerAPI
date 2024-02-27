@@ -68,5 +68,26 @@ namespace gradTrackerAPI.Controllers
             //return CreatedAtAction("GetAlumnus", new { id = alumnus.Id }, alumnus);
             return Ok();
         }
+
+        // DELETE: api/EmploymentHistory/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmploymentHistory(int id)
+        {
+            if (_context.EmploymentHistories == null)
+            {
+                return NotFound();
+            }
+
+            var employmentHistory = await _context.EmploymentHistories.FindAsync(id);
+            if (employmentHistory == null)
+            {
+                return NotFound();
+            }
+
+            _context.EmploymentHistories.Remove(employmentHistory);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
