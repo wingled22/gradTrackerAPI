@@ -1,7 +1,10 @@
+using System.Text;
 using gradTrackerAPI.Entities;
 using gradTrackerAPI.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,23 +20,26 @@ builder.Services.AddCors(options =>
 
 
 //inject DB EF
-builder.Services.AddDbContext<GradTrackerContext>(options =>
-    options.UseSqlServer("Server=localhost;Database=GradTracker;User ID=SA;Password=VeryStr0ngP@ssw0rd;TrustServerCertificate=true;"));
+// builder.Services.AddDbContext<GradTrackerContext>();
 
-// builder.Services.AddDbContext<AppIdentityDbContext>(options =>
-    // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// builder.Services.AddIdentity<AppUser, AppRole>()
-//     .AddEntityFrameworkStores<AppIdentityDbContext>()
-//     .AddDefaultTokenProviders();
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<AppIdentityDbContext>()
+    .AddDefaultTokenProviders();
+
+// builder.Services.AddAuthentication(options =>
+// {
+//     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+// }).AddJwtBearer();
 
 
-
-builder.Services.AddControllers().AddJsonOptions(
-    options => {
-        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-    }
-);
+// builder.Services.AddControllers().AddJsonOptions(
+//     options => {
+//         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+//     }
+// );
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

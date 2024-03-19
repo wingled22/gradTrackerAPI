@@ -53,9 +53,8 @@ namespace gradTrackerAPI.Controllers
 
                 return CreatedAtAction(nameof(GetEmploymentHistory), new { id = employmentHistory.Id }, employmentHistory);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 return StatusCode(500, "Internal server error");
             }
         }

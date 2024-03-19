@@ -12,7 +12,7 @@ using gradTrackerAPI.Identity;
 namespace gradTrackerAPI.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20240312061259_InitialCreate")]
+    [Migration("20240319085205_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -196,6 +196,12 @@ namespace gradTrackerAPI.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -233,13 +239,8 @@ namespace gradTrackerAPI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("UserType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
