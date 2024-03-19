@@ -20,12 +20,12 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<GradTrackerContext>(options =>
     options.UseSqlServer("Server=localhost;Database=GradTracker;User ID=SA;Password=VeryStr0ngP@ssw0rd;TrustServerCertificate=true;"));
 
-builder.Services.AddDbContext<AppIdentityDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+    // options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddIdentity<AppUser, AppRole>()
-    .AddEntityFrameworkStores<AppIdentityDbContext>()
-    .AddDefaultTokenProviders();
+// builder.Services.AddIdentity<AppUser, AppRole>()
+//     .AddEntityFrameworkStores<AppIdentityDbContext>()
+//     .AddDefaultTokenProviders();
 
 
 
