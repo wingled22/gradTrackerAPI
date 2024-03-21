@@ -28,4 +28,4 @@ to make an API controller
 
 dotnet aspnet-codegenerator controller -name RolesController -m Aspnetrole -dc SampleappContext -outDir /Controllers --useDefaultLayout --referenceScriptLibraries
 
-	dotnet aspnet-codegenerator controller -api -n CustomController -m Client -dc OlappContext -outDir Controllers  
+	dotnet aspnet-codegenerator controller -api -n CustomController -m Role -dc GradTrackerContext -outDir Controllers  
