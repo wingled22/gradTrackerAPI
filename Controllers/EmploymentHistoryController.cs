@@ -4,14 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using gradTrackerAPI.Entities;
-using gradTrackerAPI.ViewModel;
+using gradTrackerAPI.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace gradTrackerAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Roles ="Admin")]
     public class EmploymentHistoryController : ControllerBase
     {
         private readonly GradTrackerContext _context;
