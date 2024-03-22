@@ -74,32 +74,38 @@ namespace gradTrackerAPI.Controllers
         [HttpPost("LoginUser")]
         public async Task<IActionResult> Login(UserLoginViewModel login)
         {
-            //check if user exists
-            var user = await _userManager.FindByNameAsync(login.Username);
-
-            //check if user match the password and username
-            if (user != null && await _userManager.CheckPasswordAsync(user, login.Password))
+            try
             {
+                //check if user exists
+                var user = await _userManager.FindByNameAsync(login.Username);
 
-                // get claims
-                var authClaims = new List<Claim>{
+                //check if user match the password and username
+                if (user != null && await _userManager.CheckPasswordAsync(user, login.Password))
+                {
+
+                    // get claims
+                    var authClaims = new List<Claim>{
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
-                var userRoles = await _userManager.GetRolesAsync(user);
-                foreach (var role in userRoles)
-                {
-                    authClaims.Add(new Claim(ClaimTypes.Role, role));
+                    var userRoles = await _userManager.GetRolesAsync(user);
+                    foreach (var role in userRoles)
+                    {
+                        authClaims.Add(new Claim(ClaimTypes.Role, role));
+                    }
+
+                    var jwtToken = GetToken(authClaims);
+                    return Ok(
+                        new JwtSecurityTokenHandler().WriteToken(jwtToken)
+                    );
+
                 }
-
-                var jwtToken = GetToken(authClaims);
-                return Ok(
-                    new JwtSecurityTokenHandler().WriteToken(jwtToken)
-                );
-
+                return Unauthorized();
             }
-            return Unauthorized();
+            catch (Exception e) {
+                return BadRequest();
+             }
         }
 
 
