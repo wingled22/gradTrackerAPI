@@ -1,0 +1,16 @@
+{
+    "folder-color.pathColors": [
+        {
+            "folderPath": "gradTrackerAPI/gradTrackerEntities/",
+            "color": "foldercolorizer.Azure"
+        },
+        {
+            "folderPath": "gradTrackerAPI/gradTrackerRepo/",
+            "color": "foldercolorizer.Purple"
+        },
+        {
+            "folderPath": "gradTrackerAPI/gradTrackerServices/",
+            "color": "foldercolorizer.DarkOrchid"
+        }
+    ]
+}

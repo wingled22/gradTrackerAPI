@@ -2,6 +2,9 @@ using System.Security.Cryptography.Xml;
 using System.Text;
 using gradTrackerAPI.Entities;
 using gradTrackerAPI.Identity;
+using gradTrackerEntities.Entities;
+using gradTrackerRepo.Repositories;
+using gradTrackerServices.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +28,7 @@ builder.Services.AddCors(options =>
 
 
 //inject DB EF
-builder.Services.AddDbContext<GradTrackerContext>(option => option.UseSqlServer("Server=localhost;Database=GradTracker;User ID=SA;Password=VeryStr0ngP@ssw0rd;TrustServerCertificate=true;"));
+builder.Services.AddDbContext<gradTrackerEntities.Entities.GradTrackerContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -60,7 +63,10 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 });
-;
+
+
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
 
 // builder.Services.AddControllers().AddJsonOptions(

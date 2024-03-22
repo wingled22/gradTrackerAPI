@@ -22,4 +22,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\gradTrackerServices\gradTrackerServices.csproj" />
+    <ProjectReference Include="..\gradTrackerEntities\gradTrackerEntities.csproj" />
+  </ItemGroup>
+
 </Project>
