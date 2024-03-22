@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\gradTrackerServices\gradTrackerServices.csproj" />
+    <ProjectReference Include="..\gradTrackerEntities\gradTrackerEntities.csproj" />
   </ItemGroup>
 
 </Project>

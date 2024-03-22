@@ -98,14 +98,15 @@ namespace gradTrackerAPI.Controllers
                     var jwtToken = GetToken(authClaims);
                     return Ok(
                         new JwtSecurityTokenHandler().WriteToken(jwtToken)
-                    );
+                        );
 
                 }
                 return Unauthorized();
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 return BadRequest();
-             }
+            }
         }
 
 
