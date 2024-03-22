@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gradTrackerAPI", "gradTrackerAPI\gradTrackerAPI.csproj", "{11349BE3-87DE-4E74-80DD-76A4C5B2AF92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gradTrackerRepo", "gradTrackerRepo\gradTrackerRepo.csproj", "{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gradTrackerEntites", "gradTrackerEntites\gradTrackerEntites.csproj", "{E2862B67-1E23-41AC-ADF5-8FC4C521543A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{11349BE3-87DE-4E74-80DD-76A4C5B2AF92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11349BE3-87DE-4E74-80DD-76A4C5B2AF92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11349BE3-87DE-4E74-80DD-76A4C5B2AF92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2862B67-1E23-41AC-ADF5-8FC4C521543A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2862B67-1E23-41AC-ADF5-8FC4C521543A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2862B67-1E23-41AC-ADF5-8FC4C521543A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2862B67-1E23-41AC-ADF5-8FC4C521543A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
