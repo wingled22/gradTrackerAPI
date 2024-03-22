@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gradTrackerAPI", "gradTrack
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gradTrackerRepo", "gradTrackerRepo\gradTrackerRepo.csproj", "{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gradTrackerEntites", "gradTrackerEntites\gradTrackerEntites.csproj", "{E2862B67-1E23-41AC-ADF5-8FC4C521543A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gradTrackerEntities", "gradTrackerEntities\gradTrackerEntities.csproj", "{5FAB8349-CDEE-4FE3-8DC4-F9367BFCC9A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41E725CB-F04E-427B-A5BC-5AC47F1D0DF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2862B67-1E23-41AC-ADF5-8FC4C521543A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2862B67-1E23-41AC-ADF5-8FC4C521543A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2862B67-1E23-41AC-ADF5-8FC4C521543A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2862B67-1E23-41AC-ADF5-8FC4C521543A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FAB8349-CDEE-4FE3-8DC4-F9367BFCC9A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FAB8349-CDEE-4FE3-8DC4-F9367BFCC9A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FAB8349-CDEE-4FE3-8DC4-F9367BFCC9A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FAB8349-CDEE-4FE3-8DC4-F9367BFCC9A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
