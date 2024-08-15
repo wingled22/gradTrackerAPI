@@ -13,6 +13,10 @@ Create an area:
 to codegenerate the controller with views
 	dotnet aspnet-codegenerator controller -name ProductController -m Product -dc testContext -outDir Controllers --useDefaultLayout --referenceScriptLibraries
 
+	dotnet aspnet-codegenerator controller -name UserTypeController -m UserType -dc PelayoCoopContext -outDir Controllers --useDefaultLayout --referenceScriptLibraries
+
+	dotnet aspnet-codegenerator controller -name ClientController -m ClientInfo -dc PelayoCoopContext -outDir Controllers --useDefaultLayout --referenceScriptLibraries
+
 explanation: 
 
 	dotnet aspnet-cogenerator controller -name [ENTITY]Controller -m [ENTITY] -dc [YOUR-DB-CONTEXT] —outDir Controllers --useDefaultLayout --referenceScriptLibraries
