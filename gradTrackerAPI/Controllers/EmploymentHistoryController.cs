@@ -1,43 +1,32 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using gradTrackerAPI.Entities;
-using gradTrackerAPI.Model;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-
+using gradTrackerEntities.Entities;
+using gradTrackerServices.Services;
 
 namespace gradTrackerAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles ="Admin")]
     public class EmploymentHistoryController : ControllerBase
     {
-        private readonly GradTrackerContext _context;
+        private readonly IEmploymentHistoryService _service;
 
-        public EmploymentHistoryController(GradTrackerContext context)
+        public EmploymentHistoryController(IEmploymentHistoryService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<EmploymentHistory>> GetEmploymentHistory(int id)
+        public async Task<ActionResult<IEnumerable<EmploymentHistory>>> GetEmploymentHistory(int id)
         {
-            if (_context.EmploymentHistories == null)
-            {
-                return NotFound();
-            }
-            var employmentHistory = await _context.EmploymentHistories.Where(e => e.AlumniId == id).OrderByDescending(e => e.Id).ToListAsync();
-
-            if (employmentHistory == null)
+            var employmentHistories = await _service.GetEmploymentHistoriesByAlumniIdAsync(id);
+            if (employmentHistories == null || !employmentHistories.Any())
             {
                 return NotFound();
             }
 
-            return Ok(employmentHistory);
+            return Ok(employmentHistories);
         }
 
         [HttpPost]
@@ -45,17 +34,10 @@ namespace gradTrackerAPI.Controllers
         {
             try
             {
-                if (_context == null || _context.EmploymentHistories == null)
-                {
-                    return Problem("Context or entity set 'GradTrackerContext.EmploymentHistories' is null.");
-                }
-
-                _context.EmploymentHistories.Add(employmentHistory);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction(nameof(GetEmploymentHistory), new { id = employmentHistory.Id }, employmentHistory);
+                var createdEmploymentHistory = await _service.AddEmploymentHistoryAsync(employmentHistory);
+                return CreatedAtAction(nameof(GetEmploymentHistory), new { id = createdEmploymentHistory.Id }, createdEmploymentHistory);
             }
-            catch (Exception)
+            catch
             {
                 return StatusCode(500, "Internal server error");
             }
@@ -69,15 +51,17 @@ namespace gradTrackerAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(employmentHistory).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                var updatedEmploymentHistory = await _service.UpdateEmploymentHistoryAsync(employmentHistory);
+                if (updatedEmploymentHistory == null)
+                {
+                    return NotFound();
+                }
             }
-            catch (DbUpdateConcurrencyException)
+            catch
             {
-                if (!EmploymentHistoryExists(id))
+                if (!await _service.EmploymentHistoryExistsAsync(id))
                 {
                     return NotFound();
                 }
@@ -90,31 +74,16 @@ namespace gradTrackerAPI.Controllers
             return NoContent();
         }
 
-
-        // DELETE: api/EmploymentHistory/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmploymentHistory(int id)
         {
-            if (_context.EmploymentHistories == null)
+            var deleted = await _service.DeleteEmploymentHistoryAsync(id);
+            if (!deleted)
             {
                 return NotFound();
             }
-
-            var employmentHistory = await _context.EmploymentHistories.FindAsync(id);
-            if (employmentHistory == null)
-            {
-                return NotFound();
-            }
-
-            _context.EmploymentHistories.Remove(employmentHistory);
-            await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool EmploymentHistoryExists(int id)
-        {
-            return (_context.EmploymentHistories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

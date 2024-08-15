@@ -20,10 +20,10 @@ var configuration = builder.Configuration;
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
-    {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    });
+  options.AddDefaultPolicy(builder =>
+  {
+    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+  });
 });
 
 
@@ -34,40 +34,43 @@ builder.Services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlSer
 
 builder.Services.AddIdentity<AppUser, AppRole>(option =>
 {
-    option.Password.RequireNonAlphanumeric = false;
-    option.Password.RequireDigit = false;
-    option.Password.RequireUppercase = false;
+  option.Password.RequireNonAlphanumeric = false;
+  option.Password.RequireDigit = false;
+  option.Password.RequireUppercase = false;
 
-    // option.SignIn.RequireConfirmedEmail = true;
+  // option.SignIn.RequireConfirmedEmail = true;
 })
     .AddEntityFrameworkStores<AppIdentityDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+  options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    options.SaveToken = true;
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        // ValidateLifetime = true,
-        // ValidateIssuerSigningKey = true,
-        ValidIssuer = configuration["JWT:ValidIssuer"],
-        ValidAudience = configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
-    };
+  options.SaveToken = true;
+  options.RequireHttpsMetadata = false;
+  options.TokenValidationParameters = new TokenValidationParameters()
+  {
+    ValidateIssuer = true,
+    ValidateAudience = true,
+    // ValidateLifetime = true,
+    // ValidateIssuerSigningKey = true,
+    ValidIssuer = configuration["JWT:ValidIssuer"],
+    ValidAudience = configuration["JWT:ValidIssuer"],
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
+  };
 });
 
 
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-
+builder.Services.AddScoped<IAlumnusService, AlumnusService>();
+builder.Services.AddScoped<IAlumnusRepository, AlumnusRepository>();
+builder.Services.AddScoped<IEmploymentHistoryRepository, EmploymentHistoryRepository>();
+builder.Services.AddScoped<IEmploymentHistoryService, EmploymentHistoryService>();
 
 // builder.Services.AddControllers().AddJsonOptions(
 //     options => {
@@ -81,24 +84,23 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(option =>
 {
-    // option.SwaggerDoc("v1", new OpenApiInfo { Title = "gradTrackerAPI", Version = "v1" });
-    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        In = ParameterLocation.Header,
-        Description = "Please enter a valid token",
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT",
-        Scheme = "Bearer"
-    });
+  // option.SwaggerDoc("v1", new OpenApiInfo { Title = "gradTrackerAPI", Version = "v1" });
+  option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+  {
+    In = ParameterLocation.Header,
+    Description = "Please enter a valid token",
+    Name = "Authorization",
+    Type = SecuritySchemeType.Http,
+    BearerFormat = "JWT",
+    Scheme = "Bearer"
+  });
 
-    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+  option.AddSecurityRequirement(new OpenApiSecurityRequirement
 {
-    {
-        new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } },
-        new string[]{}
-    }
-});
+  {
+      new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } },
+      new string[]{}
+  }});
 });
 
 
@@ -109,8 +111,8 @@ app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
