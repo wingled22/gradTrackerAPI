@@ -13,7 +13,7 @@ namespace gradTrackerAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public class AlumniController : ControllerBase
     {
         private readonly IAlumnusService _alumnusService;
