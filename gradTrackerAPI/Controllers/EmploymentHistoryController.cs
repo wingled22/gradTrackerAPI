@@ -23,7 +23,7 @@ namespace gradTrackerAPI.Controllers
             var employmentHistories = await _service.GetEmploymentHistoriesByAlumniIdAsync(id);
             if (employmentHistories == null || !employmentHistories.Any())
             {
-                return NotFound();
+                return Ok();
             }
 
             return Ok(employmentHistories);
