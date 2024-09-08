@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gradTrackerEntities", "grad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gradTrackerServices", "gradTrackerServices\gradTrackerServices.csproj", "{1D556364-A740-41C7-996E-8D5AE8F4F0DD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{56AD9DC5-3A76-48C5-8C12-E39DA61FE0DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gradTrackerApi.UnitTests", "tests\gradTrackerApi.UnitTests\gradTrackerApi.UnitTests.csproj", "{F54AEACF-AEED-417C-86DF-7121FA36859C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,11 +37,18 @@ Global
 		{1D556364-A740-41C7-996E-8D5AE8F4F0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D556364-A740-41C7-996E-8D5AE8F4F0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D556364-A740-41C7-996E-8D5AE8F4F0DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54AEACF-AEED-417C-86DF-7121FA36859C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54AEACF-AEED-417C-86DF-7121FA36859C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54AEACF-AEED-417C-86DF-7121FA36859C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54AEACF-AEED-417C-86DF-7121FA36859C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05B46145-20F1-4522-8697-5343C08B0005}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F54AEACF-AEED-417C-86DF-7121FA36859C} = {56AD9DC5-3A76-48C5-8C12-E39DA61FE0DD}
 	EndGlobalSection
 EndGlobal
